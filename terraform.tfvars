@@ -1,5 +1,6 @@
 # Copy this to terraform.tfvars and fill values as needed
 
+ami_id       = "ami-0fa91bc90632c73c9"
 aws_region   = "us-east-1"
 env          = "dev"
 
