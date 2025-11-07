@@ -97,17 +97,6 @@ data "aws_subnets" "default" {
   }
 }
 
-# Get a recent Amazon Linux 2 AMI for your region (official owner)
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["137112412989"] # Amazon
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
-  }
-}
-
 # (Optional) If you have an SSH public key at ~/.ssh/id_rsa.pub, import it.
 # Comment this block if you prefer not to manage keys here.
 resource "aws_key_pair" "local" {
@@ -119,7 +108,7 @@ resource "aws_key_pair" "local" {
 
 resource "aws_instance" "demo" {
   count                       = var.create_ec2 ? 1 : 0
-  ami                         = data.aws_ami.amazon_linux.id
+  ami                         = var.ami_id
   instance_type               = var.instance_type
   subnet_id                   = tolist(data.aws_subnets.default.ids)[0]
   vpc_security_group_ids      = var.allow_ssh ? [aws_security_group.ssh[0].id] : []
