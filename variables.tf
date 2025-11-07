@@ -33,3 +33,8 @@ variable "allow_ssh" {
   type        = bool
   default     = true
 }
+
+variable "ami_id" {
+  description = "EC2 instance AMI"
+  type        = string 
+}
